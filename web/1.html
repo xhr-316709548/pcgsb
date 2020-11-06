@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ECharts 关系图</title>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/echarts.js"></script>
+</head>
+
+<body>
+<div id="main" style="width:1000px;height:1000px"></div>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('main'));
+    var categories = [
+        {name: '电影',color: '#999'},
+        {name: '演员'},
+        {name: '编剧'},
+        {name: '导演、编剧、演员'}
+    ]
+    option = {
+        // 图的标题
+        title: {
+            text: '《功夫》 关系图'
+        },
+        // 提示框的配置
+        tooltip: {
+            formatter: function (x) {
+                return x.data.des;
+            }
+        },
+        // 工具箱
+        toolbox: {
+            // 显示工具箱
+            show: true,
+            feature: {
+                mark: {
+                    show: true
+                },
+                // 还原
+                restore: {
+                    show: true
+                },
+                // 保存为图片
+                saveAsImage: {
+                    show: true
+                }
+            }
+        },
+        legend: [{
+            // selectedMode: 'single',
+            data: categories.map(function (a) {
+                return a.name;
+            })
+        }],
+        series: [{
+            type: 'graph', // 类型:关系图
+            layout: 'force', //图的布局，类型为力导图
+            symbolSize: 40, // 调整节点的大小
+            roam: true, // 是否开启鼠标缩放和平移漫游。默认不开启。如果只想要开启缩放或者平移,可以设置成 'scale' 或者 'move'。设置成 true 为都开启
+            edgeSymbol: ['circle', 'arrow'],
+            edgeSymbolSize: [2, 10],
+            edgeLabel: {
+                normal: {
+                    textStyle: {
+                        fontSize: 20
+                    }
+                }
+            },
+            force: {
+                edgeLength: 50,
+                repulsion: 800,
+                gravity: 0.2
+            },
+            draggable: true,
+            lineStyle: {
+                normal: {
+                    width: 2,
+                    color: '#050204',
+                }
+            },
+            edgeLabel: {
+                normal: {
+                    show: true,
+                    formatter: function (x) {
+                        return x.data.name;
+                    }
+                }
+            },
+            label: {
+                normal: {
+                    show: true,
+                    textStyle: {}
+                }
+            },
+
+            // 数据
+            data: [{
+                name: '《功夫》',
+                des:'《功夫》',
+                symbolSize: 100,
+                category: 0,
+                fx:500,
+                fy:500,
+            }, {
+                name: '黄圣依 \n Eva Huang',
+                des: '黄圣依 \n Eva Huang',
+                symbolSize: 40,
+                category: 1,
+            }, {
+                name: '周星驰 \n Stephen Chow',
+                des: '周星驰 \n Stephen Chow',
+                symbolSize: 40,
+                category: 3,
+            }, {
+                name: '元华 \n Wah Yuen',
+                des: '元华 \n Wah Yuen',
+                symbolSize: 40,
+                category: 1,
+            }, {
+                name: '释彦能 \n Xingyu Shi',
+                des: '释彦能 \n Xingyu Shi',
+                symbolSize: 40,
+                category: 1,
+            }, {
+                name: '陈国坤 \n Kwok-Kwan Chan',
+                des: '陈国坤 \n Kwok-Kwan Chan',
+                symbolSize: 40,
+                category: 1,
+            }, {
+                name: '冯小刚 \n Xiaogang Feng',
+                des: '冯小刚 \n Xiaogang Feng',
+                symbolSize: 40,
+                category: 1,
+            }, {
+                name: '林雪 \n Suet Lam',
+                des: '林雪 \n Suet Lam',
+                symbolSize: 40,
+                category: 1,
+            }, {
+                name: '董志华 \n Zhihua Dong',
+                des: '董志华 \n Zhihua Dong',
+                symbolSize: 40,
+                category: 1,
+            }, {
+                name: '张一白 \n Yibai Zhang',
+                des: '张一白 \n Yibai Zhang',
+                symbolSize: 40,
+                category: 1,
+            }, {
+                name: '冯克安 \n Hark-On Fung',
+                des: '冯克安 \n Hark-On Fung',
+                symbolSize: 40,
+                category: 1,
+            }, {
+                name: '黄锐民 \n Oliver Wong',
+                des: '黄锐民 \n Oliver Wong',
+                symbolSize: 40,
+                category: 1,
+            }, {
+                name: '袁祥仁 \n Cheung-Yan Yuen',
+                des: '袁祥仁 \n Cheung-Yan Yuen',
+                symbolSize: 40,
+                category: 1,
+            }, {
+                name: '元秋 \n Qiu Yuen',
+                des: '元秋 \n Qiu Yuen',
+                symbolSize: 40,
+                category: 1,
+            }, {
+                name: '赵志凌 \n Chi-Ling Chiu',
+                des: '赵志凌 \n Chi-Ling Chiu',
+                symbolSize: 40,
+                category: 1,
+            }, {
+                name: '林子聪 \n Tze Chung Lam',
+                des: '林子聪 \n Tze Chung Lam',
+                symbolSize: 40,
+                category: 1,
+            }, {
+                name: '林子善 \n Chi-Sing Lam',
+                des: '林子善 \n Chi-Sing Lam',
+                symbolSize: 40,
+                category: 1,
+            }, {
+                name: '陈凯师 \n Kai-Shi Chen',
+                des: '陈凯师 \n Kai-Shi Chen',
+                symbolSize: 40,
+                category: 1,
+            }, {
+                name: '任珈锐 \n Jiarui Ren',
+                des: '任珈锐 \n Jiarui Ren',
+                symbolSize: 40,
+                category: 1,
+            }, {
+                name: '何文辉 \n Wenhui He',
+                des: '何文辉 \n Wenhui He',
+                symbolSize: 40,
+                category: 1,
+            }, {
+                name: '冯勉恒 \n Min Hun Fung',
+                des: '冯勉恒 \n Min Hun Fung',
+                symbolSize: 40,
+                category: 1,
+            }, {
+                name: '姜瑰瑾 \n Guijin Jiang',
+                des: '姜瑰瑾 \n Guijin Jiang',
+                symbolSize: 40,
+                category: 1,
+            }, {
+                name: '贾康熙 \n Kangxi Jia',
+                des: '贾康熙 \n Kangxi Jia',
+                symbolSize: 40,
+                category: 1,
+            }, {
+                name: '范湉湉 \n Tiantian Fan',
+                des: '范湉湉 \n Tiantian Fan',
+                symbolSize: 40,
+                category: 1,
+            }, {
+                name: '杨能 \n Neng Yang',
+                des: '杨能 \n Neng Yang',
+                symbolSize: 40,
+                category: 1,
+            }, {
+                name: '王仕颖 \n Shiying Wang',
+                des: '王仕颖 \n Shiying Wang',
+                symbolSize: 40,
+                category: 1,
+            }, {
+                name: '陈文强 \n Man Keung Chan',
+                des: '陈文强 \n Man Keung Chan',
+                symbolSize: 40,
+                category: 2,
+            }, {
+                name: '霍昕 \n Xin Huo',
+                des: '霍昕 \n Xin Huo',
+                symbolSize: 40,
+                category: 2,
+            }, {
+                name: '曾瑾昌 \n Kan-Cheung Tsang',
+                des: '曾瑾昌 \n Kan-Cheung Tsang',
+                symbolSize: 40,
+                category: 2,
+            }],
+            links: [{
+                source: '《功夫》',
+                target: '黄圣依 \n Eva Huang',
+                name: 'actor',
+            }, {
+                source: '《功夫》',
+                target: '林子聪 \n Tze Chung Lam',
+                name: 'actor',
+            },{
+                source: '《功夫》',
+                target: '周星驰 \n Stephen Chow',
+                name: 'actor',
+            }, {
+                source: '《功夫》',
+                target: '元华 \n Wah Yuen',
+                name: 'actor',
+            }, {
+                source: '《功夫》',
+                target: '释彦能 \n Xingyu Shi',
+                name: 'actor',
+            }, {
+                source: '《功夫》',
+                target: '陈国坤 \n Kwok-Kwan Chan',
+                name: 'actor',
+            }, {
+                source: '《功夫》',
+                target: '冯小刚 \n Xiaogang Feng',
+                name: 'actor',
+            }, {
+                source: '《功夫》',
+                target: '梁小龙 \n Siu-Lung Leung',
+                name: 'actor',
+            }, {
+                source: '《功夫》',
+                target: '林雪 \n Suet Lam',
+                name: 'actor',
+            }, {
+                source: '《功夫》',
+                target: '董志华 \n Zhihua Dong',
+                name: 'actor',
+            }, {
+                source: '《功夫》',
+                target: '张一白 \n Yibai Zhang',
+                name: 'actor',
+            }, {
+                source: '《功夫》',
+                target: '冯克安 \n Hark-On Fung',
+                name: 'actor',
+            }, {
+                source: '《功夫》',
+                target: '黄锐民 \n Oliver Wong',
+                name: 'actor',
+            }, {
+                source: '《功夫》',
+                target: '袁祥仁 \n Cheung-Yan Yuen',
+                name: 'actor',
+            }, {
+                source: '《功夫》',
+                target: '元秋 \n Qiu Yuen',
+                name: 'actor',
+            }, {
+                source: '《功夫》',
+                target: '赵志凌 \n Chi-Ling Chiu',
+                name: 'actor',
+            }, {
+                source: '《功夫》',
+                target: '林子善 \n Chi-Sing Lam',
+                name: 'actor',
+            }, {
+                source: '《功夫》',
+                target: '陈凯师 \n Kai-Shi Chen',
+                name: 'actor',
+            }, {
+                source: '《功夫》',
+                target: '任珈锐 \n Jiarui Ren',
+                name: 'actor',
+            }, {
+                source: '《功夫》',
+                target: '何文辉 \n Wenhui He',
+                name: 'actor',
+            }, {
+                source: '《功夫》',
+                target: '冯勉恒 \n Min Hun Fung',
+                name: 'actor',
+            }, {
+                source: '《功夫》',
+                target: '姜瑰瑾 \n Guijin Jiang',
+                name: 'actor',
+            }, {
+                source: '《功夫》',
+                target: '贾康熙 \n Kangxi Jia',
+                name: 'actor',
+            }, {
+                source: '《功夫》',
+                target: '范湉湉 \n Tiantian Fan',
+                name: 'actor',
+            }, {
+                source: '《功夫》',
+                target: '杨能 \n Neng Yang',
+                name: 'actor',
+            }, {
+                source: '《功夫》',
+                target: '王仕颖 \n Shiying Wang',
+                name: 'actor',
+            }, {
+                source: '《功夫》',
+                target: '周星驰 \n Stephen Chow',
+                name: 'author',
+            }, {
+                source: '《功夫》',
+                target: '陈文强 \n Man Keung Chan',
+                name: 'author',
+            }, {
+                source: '《功夫》',
+                target: '霍昕 \n Xin Huo',
+                name: 'author',
+            }, {
+                source: '《功夫》',
+                target: '曾瑾昌 \n Kan-Cheung Tsang',
+                name: 'author',
+            }, {
+                source: '《功夫》',
+                target: '周星驰 \n Stephen Chow',
+                name: 'director',
+            }],
+            categories: categories,
+        }]
+    };
+    myChart.setOption(option);
+
+</script>
+</body>
+</html>

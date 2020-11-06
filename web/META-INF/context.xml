@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Context reloadable = "true">
+<Resource
+      name="jdbc/sampleDS"
+      type="javax.sql.DataSource"
+      maxActive="4"
+      maxIdle="2"
+      username="douban"
+      maxWait="5000"
+      driverClassName="com.mysql.cj.jdbc.Driver"
+      password="7zaCnJ2DMt5yiW68"
+      url="jdbc:mysql://47.103.222.233:3306/douban?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=UTC"/>
+</Context>
