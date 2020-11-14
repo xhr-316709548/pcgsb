@@ -1,6 +1,7 @@
 package com.Servlet;
 
 import com.Bean.movie;
+import com.Bean.person;
 import com.dao.UserDao;
 
 import javax.servlet.RequestDispatcher;
@@ -20,17 +21,23 @@ public class findMovieList extends HttpServlet {
         UserDao dao = new UserDao();
         String choose = request.getParameter("fchoose");
         ArrayList<movie> mList;
+        ArrayList<person> pList;
         if(choose.equals("mName")){
             mList = dao.findmovie_by_moviename(request.getParameter("search"));
+            request.setAttribute("mList", mList);
+            int num = mList.toArray().length;
+            request.setAttribute("num", num);
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/movielist.jsp");
+            rd.forward(request, response);
         }
         else{
-            mList = dao.findmovie_by_personname(request.getParameter("search"));
+            pList = dao.findperson_by_personname(request.getParameter("search"));
+            request.setAttribute("pList", pList);
+            int num = pList.toArray().length;
+            request.setAttribute("num", num);
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/personlist.jsp");
+            rd.forward(request, response);
         }
-        request.setAttribute("mList", mList);
-        int num = mList.toArray().length;
-        request.setAttribute("num", num);
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/movielist.jsp");
-        rd.forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

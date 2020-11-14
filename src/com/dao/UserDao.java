@@ -37,6 +37,31 @@ public class UserDao extends BaseDao{
         return movielist;
     }
 
+    public ArrayList<person> findperson_by_personname(String name){
+        String sql="select * from person where name like ?;";
+        ArrayList<person> personlist = new ArrayList<>();
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, '%'+name+'%');
+            try (ResultSet rst = pstmt.executeQuery()) {
+                while (rst.next()) {
+                    person p=new person();
+                    p.setId(rst.getInt("id"));
+                    p.setName(rst.getString("name"));
+                    p.setBirthplace(rst.getString("birthplace"));
+                    p.setBirthday(rst.getString("birthday"));
+                    p.setImg(rst.getString("img"));
+                    p.setSummary(rst.getString("summary"));
+                    p.setSex(rst.getString("sex"));
+                    personlist.add(p);
+                }
+            }
+        } catch (SQLException se) {
+            return null;
+        }
+        return personlist;
+    }
+    
     public ArrayList<movie> findmovie_by_personname(String name){
         String sql="select * from movies where id in(select movie_id from relationships where relationships.person_id in (select id from person where name like ?));";
         ArrayList<movie> movielist = new ArrayList<>();
@@ -87,6 +112,29 @@ public class UserDao extends BaseDao{
         return m;
     }
 
+    public person findperson_by_personid(String id){
+        String sql="select * from person where id = ? ";
+        person p = new person();
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, id);
+            try (ResultSet rst = pstmt.executeQuery()) {
+                if (rst.next()) {
+                    p.setId(rst.getInt("id"));
+                    p.setName(rst.getString("name"));
+                    p.setBirthplace(rst.getString("birthplace"));
+                    p.setBirthday(rst.getString("birthday"));
+                    p.setImg(rst.getString("img"));
+                    p.setSummary(rst.getString("summary"));
+                    p.setSex(rst.getString("sex"));
+                }
+            }
+        } catch (SQLException se) {
+            return null;
+        }
+        return p;
+    }
+
     public ArrayList<person> findperson_by_movieid(String id){
         String sql="select * from person where id in (select person_id from relationships where movie_id = ?) ";
         ArrayList<person> personlist = new ArrayList<>();
@@ -110,6 +158,32 @@ public class UserDao extends BaseDao{
             return null;
         }
         return personlist;
+    }
+
+    public ArrayList<movie> findmovie_by_personid(String id){
+        String sql="select * from movies where id in (select movie_id from relationships where person_id = ?) ";
+        ArrayList<movie> movielist = new ArrayList<>();
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, id);
+            try (ResultSet rst = pstmt.executeQuery()) {
+                while (rst.next()) {
+                    movie m=new movie();
+                    m.setId(rst.getInt("id"));
+                    m.setName(rst.getString("name"));
+                    m.setCountry(rst.getString("country"));
+                    m.setGenre(rst.getString("genre"));
+                    m.setImg(rst.getString("img"));
+                    m.setSummary(rst.getString("summary"));
+                    m.setYear(rst.getString("year"));
+                    m.setRate(rst.getString("rating"));
+                    movielist.add(m);
+                }
+            }
+        } catch (SQLException se) {
+            return null;
+        }
+        return movielist;
     }
 
     public ArrayList<person> findperson_by_movieid_role(String id,String role){

@@ -4266,6 +4266,9 @@ ul {
   -moz-transition: all 0.5s ease-out;
   -o-transition: all 0.5s ease-out;
   transition: all 0.5s ease-out;
+  width:285px;
+  height:350px;
+  object-fit: cover;
 }
 @media (max-width: 767px) {
   .movie-item-style-2 img {
