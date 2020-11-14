@@ -22,12 +22,11 @@ public class findMovieList extends HttpServlet {
         ArrayList<movie> mList;
         if(choose.equals("mName")){
             mList = dao.findmovie_by_moviename(request.getParameter("search"));
-            request.setAttribute("mList", mList);
         }
         else{
             mList = dao.findmovie_by_personname(request.getParameter("search"));
-            request.setAttribute("mList", mList);
         }
+        request.setAttribute("mList", mList);
         int num = mList.toArray().length;
         request.setAttribute("num", num);
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/movielist.jsp");

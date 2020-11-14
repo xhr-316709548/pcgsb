@@ -222,19 +222,14 @@
 
         <!-- top search form -->
         <form action="findMovieList" method="post">
-        <div class="top-search">
-            <select name="fchoose">
-                <option value="mName">影名</option>
-                <option value="actor">明星</option>
-                <option value="director">导演</option>
-                <option value="genre">标签</option>
-            </select>
-            <input type="text" name="search" placeholder="请选择左侧搜索方式再进行搜索。">
-        </div>
-            <div class="form-style-1" >
-                <div class="col-md-1 ">
-                    <input class="submit" type="submit" value="搜索"/>
-                </div>
+            <div class="top-search">
+                <select name="fchoose">
+                    <option value="mName">影名</option>
+                    <option value="actor">明星</option>
+                    <option value="director">导演</option>
+                    <option value="genre">标签</option>
+                </select>
+                <input type="text" name="search" placeholder="请选择左侧搜索方式再进行搜索。">
             </div>
         </form>
     </div>

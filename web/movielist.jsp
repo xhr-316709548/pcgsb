@@ -232,11 +232,6 @@
                 </select>
                 <input type="text" name="search" placeholder="请选择左侧搜索方式再进行搜索。">
             </div>
-            <div class="form-style-1" >
-                <div class="col-md-1 ">
-                    <input class="submit" type="submit" value="搜索"/>
-                </div>
-            </div>
         </form>
     </div>
 </header>
@@ -277,11 +272,11 @@
                 </div>
                 <c:forEach var="mList" items="${requestScope.mList}">
                     <div class="movie-item-style-2">
-                        <img src=${mList.img} alt="">
+                        <img src=${mList.img} class="eval-self-photo" alt=""onerror="onerror=null;src='images/noImg.jpg'">
                         <div class="mv-item-infor">
                             <h6><a href="showMovie?movieid=${mList.id}">${mList.name} <span>(${mList.year})</span></a></h6>
                             <p class="rate"><i class="ion-android-star"></i><span>${mList.rate}</span> /10</p>
-                            <p class="describe">${mList.summary}</p>
+                            <p style="display: -webkit-box;-webkit-line-clamp:3;-webkit-box-orient: vertical;overflow: hidden;border-bottom: 1px solid #405266;margin-bottom: 25px;">${mList.summary}</p>
                             <p class="run-time"> Genre: ${mList.genre}  </p>
                             <p>Country: ${mList.country}</p>
                         </div>

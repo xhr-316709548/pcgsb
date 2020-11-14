@@ -13,8 +13,6 @@
     <!-- Basic need -->
     <title>Open Pediatrics</title>
     <meta charset="UTF-8">
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/echarts.js"></script>
     <meta name="referrer" content="no-referrer">
     <meta name="description" content="">
     <meta name="keywords" content="">
@@ -31,6 +29,8 @@
     <link rel="stylesheet" href="css/plugins.css">
     <link rel="stylesheet" href="css/style.css">
 
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/echarts.js"></script>
 </head>
 <body>
 <!--preloading-->
@@ -234,11 +234,6 @@
                 </select>
                 <input type="text" name="search" placeholder="请选择左侧搜索方式再进行搜索。">
             </div>
-            <div class="form-style-1" >
-                <div class="col-md-1 ">
-                    <input class="submit" type="submit" value="搜索"/>
-                </div>
-            </div>
         </form>
     </div>
 </header>
@@ -304,7 +299,7 @@
                                         <div class="col-md-8 col-sm-12 col-xs-12">
                                             <p>${requestScope.movie.summary}</p>
                                             <div class="title-hd-sm">
-                                                <h4>DIRECTOR and AUTHOR</h4>
+                                                <h4>DIRECTOR</h4>
                                                 <a href="#" class="time">Full Crew  <i class="ion-ios-arrow-right"></i></a>
                                             </div>
                                             <!-- movie cast -->
@@ -318,24 +313,15 @@
                                                         <p>${dirList.birthplace}</p>
                                                     </div>
                                                 </c:forEach>
-                                                <c:forEach var="autList" items="${requestScope.autList}">
-                                                    <div class="cast-it">
-                                                        <div class="cast-left">
-                                                            <img width="40" height="40" src=${autList.img} alt="">
-                                                            <a href="#">${autList.name}</a>
-                                                        </div>
-                                                        <p>${autList.birthplace}</p>
-                                                    </div>
-                                                </c:forEach>
                                             </div>
                                         </div>
                                         <div class="col-md-4 col-xs-12 col-sm-12">
                                             <div class="sb-it">
                                                 <h6>Director: </h6>
                                                 <p>
-                                                <c:forEach var="dirList" items="${requestScope.dirList}">
-                                                    <a href="#">${dirList.name},</a>
-                                                </c:forEach>
+                                                    <c:forEach var="dirList" items="${requestScope.dirList}">
+                                                        <a href="#">${dirList.name},</a>
+                                                    </c:forEach>
                                                 </p>
                                             </div>
                                             <div class="sb-it">
@@ -517,8 +503,8 @@
                                                     },
 
                                                     // 数据
-                                                    data: ${pointlist},
-                                                    links: ${linklist},
+                                                    data: ${requestScope.pointlist},
+                                                    links: ${requestScope.linklist},
                                                     categories: categories,
                                                 }]
                                             };
