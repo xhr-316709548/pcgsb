@@ -27,42 +27,42 @@ public class showPerson extends HttpServlet {
         String personid = request.getParameter("personid");
         person p = dao.findperson_by_personid(personid);
         ArrayList<movie> mList;
-        /*ArrayList<link> linklist;
+        ArrayList<link> linklist;
         ArrayList<point> pointlist=new ArrayList<>();
         linklist = dao.search_person_link(personid);
         JSONArray linkresult = JSONArray.fromObject(linklist);
-        point mp=new point();
-        mp.setName(linklist.get(0).getSource());
-        mp.setCategory(0);
-        mp.setSymbolSize(100);
-        pointlist.add(mp);
+        point pp=new point();
+        pp.setName(linklist.get(0).getTarget());
+        pp.setCategory(0);
+        pp.setSymbolSize(100);
+        pointlist.add(pp);
         for (com.Bean.link link : linklist) {
-            point p = new point();
+            point pt = new point();
             if (link.getName().equals("actor")) {
-                p.setName(link.getTarget());
-                p.setCategory(1);
+                pt.setName(link.getSource());
+                pt.setCategory(1);
             } else if (link.getName().equals("author")) {
-                p.setName(link.getTarget());
-                p.setCategory(2);
+                pt.setName(link.getSource());
+                pt.setCategory(2);
             } else {
-                p.setName(link.getTarget());
-                p.setCategory(3);
+                pt.setName(link.getSource());
+                pt.setCategory(3);
             }
             int flag = 1;
             for (com.Bean.point point : pointlist) {
-                if (point.getName().equals(p.getName())) {
+                if (point.getName().equals(pt.getName())) {
                     flag = 0;
-                    if (point.getCategory() < p.getCategory()) {
-                        point.setCategory(p.getCategory());
+                    if (point.getCategory() < pt.getCategory()) {
+                        point.setCategory(pt.getCategory());
                     }
                     break;
                 }
             }
-            if (flag == 1) pointlist.add(p);
+            if (flag == 1) pointlist.add(pt);
         }
         JSONArray pointresult=JSONArray.fromObject(pointlist);
         request.setAttribute("linklist",linkresult.toString());
-        request.setAttribute("pointlist",pointresult.toString());*/
+        request.setAttribute("pointlist",pointresult.toString());
         mList = dao.findmovie_by_personid(personid);
         request.setAttribute("mList", mList);
         request.setAttribute("person", p);

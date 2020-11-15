@@ -231,4 +231,25 @@ public class UserDao extends BaseDao{
         }
         return linklist;
     }
+
+    public ArrayList<link> search_person_link(String person_id){
+        String sql="select person.name , movies.name , relationships.role from person , relationships , movies where person.id = ? and relationships.movie_id=movies.id and relationships.person_id=person.id";
+        ArrayList<link> linklist = new ArrayList<>();
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, person_id);
+            try (ResultSet rst = pstmt.executeQuery()) {
+                while (rst.next()) {
+                    link l=new link();
+                    l.setName(rst.getString("role"));
+                    l.setSource(rst.getString("movies.name"));
+                    l.setTarget(rst.getString("person.name"));
+                    linklist.add(l);
+                }
+            }
+        } catch (SQLException se) {
+            return null;
+        }
+        return linklist;
+    }
 }
