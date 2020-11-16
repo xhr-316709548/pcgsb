@@ -3,6 +3,7 @@ package com.dao;
 import com.Bean.link;
 import com.Bean.movie;
 import com.Bean.person;
+import com.Bean.user;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -211,6 +212,7 @@ public class UserDao extends BaseDao{
         }
         return personlist;
     }
+
     public ArrayList<link> search_movie_link(String movie_id){
         String sql="select person.name , movies.name , relationships.role from person , relationships , movies where movies.id = ? and relationships.movie_id=movies.id and relationships.person_id=person.id";
         ArrayList<link> linklist = new ArrayList<>();
@@ -251,5 +253,36 @@ public class UserDao extends BaseDao{
             return null;
         }
         return linklist;
+    }
+
+    public String findUser(String userName){
+        String sql="select password from userInfo where userName=?";
+        String s=null;
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, userName);
+            try (ResultSet rst = pstmt.executeQuery()) {
+                if (rst.next()) {
+                    s = rst.getString("password");
+                }
+            }
+        } catch (SQLException se) {
+            return null;
+        }
+        return s;
+    }
+
+    public Boolean insertUser(user user){
+        String sql="insert into userInfo (userName, email, password) VALUES (?,?,?)";
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, user.getUserName());
+            pstmt.setString(2, user.getEmail());
+            pstmt.setString(3, user.getPassword());
+            pstmt.executeUpdate();
+            return true;
+        } catch (SQLException se) {
+            return false;
+        }
     }
 }
