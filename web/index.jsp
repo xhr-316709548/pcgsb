@@ -1202,28 +1202,28 @@
                         <div class="celeb-item">
                             <a href="#"><img src="images/uploads/ava1.jpg" alt="" width="70" height="70"></a>
                             <div class="celeb-author">
-                                <h6><a href="#">Samuel N. Jack</a></h6>
+                                <h6><a href="#">${requestScope.recommendUser[0]}</a></h6>
                                 <span>vip用户</span>
                             </div>
                         </div>
                         <div class="celeb-item">
                             <a href="#"><img src="images/uploads/ava2.jpg" alt="" width="70" height="70"></a>
                             <div class="celeb-author">
-                                <h6><a href="#">Benjamin Carroll</a></h6>
+                                <h6><a href="#">${requestScope.recommendUser[1]}</a></h6>
                                 <span>普通用户</span>
                             </div>
                         </div>
                         <div class="celeb-item">
                             <a href="#"><img src="images/uploads/ava3.jpg" alt="" width="70" height="70"></a>
                             <div class="celeb-author">
-                                <h6><a href="#">Beverly Griffin</a></h6>
+                                <h6><a href="#">${requestScope.recommendUser[2]}</a></h6>
                                 <span>普通用户</span>
                             </div>
                         </div>
                         <div class="celeb-item">
                             <a href="#"><img src="images/uploads/ava4.jpg" alt="" width="70" height="70"></a>
                             <div class="celeb-author">
-                                <h6><a href="#">Justin Weaver</a></h6>
+                                <h6><a href="#">${requestScope.recommendUser[3]}</a></h6>
                                 <span>普通用户</span>
                             </div>
                         </div>

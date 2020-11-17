@@ -29,7 +29,7 @@ public class signupServlet extends HttpServlet {
             user user = new user(userName, email, repassword);
             if (dao.insertUser(user)) {
                 session.setAttribute("uName",userName);
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/recommendServlet");
                 rd.forward(request, response);
             } else {
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");

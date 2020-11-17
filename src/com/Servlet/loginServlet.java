@@ -23,7 +23,7 @@ public class loginServlet extends HttpServlet {
         HttpSession session = request.getSession();
         if(password.equals(dao.findUser(userName))) {
             session.setAttribute("uName",userName);
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/recommendServlet");
             rd.forward(request, response);
         }
         else{
