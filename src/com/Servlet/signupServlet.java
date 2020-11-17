@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -23,9 +24,11 @@ public class signupServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String repassword = request.getParameter("repassword");
+        HttpSession session = request.getSession();
         if(password.equals(repassword)) {
             user user = new user(userName, email, repassword);
             if (dao.insertUser(user)) {
+                session.setAttribute("uName",userName);
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
                 rd.forward(request, response);
             } else {

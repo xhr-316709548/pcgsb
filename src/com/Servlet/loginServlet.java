@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = "/loginServlet")
@@ -19,12 +20,14 @@ public class loginServlet extends HttpServlet {
         UserDao dao = new UserDao();
         String userName = request.getParameter("username");
         String password = request.getParameter("password");
+        HttpSession session = request.getSession();
         if(password.equals(dao.findUser(userName))) {
+            session.setAttribute("uName",userName);
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
             rd.forward(request, response);
         }
         else{
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/1.jsp");
             rd.forward(request, response);
         }
     }

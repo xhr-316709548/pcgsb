@@ -22,19 +22,34 @@ public class findMovieList extends HttpServlet {
         String choose = request.getParameter("fchoose");
         ArrayList<movie> mList;
         ArrayList<person> pList;
+        int page = 1;
         if(choose.equals("mName")){
             mList = dao.findmovie_by_moviename(request.getParameter("search"));
-            request.setAttribute("mList", mList);
+            request.getSession().setAttribute("movieList",mList);
+            ArrayList<movie> mmList = new ArrayList<>();
+            for(int i=0;i<5;i++){
+                if(i<mList.toArray().length)
+                    mmList.add(mList.get(i));
+            }
+            request.setAttribute("mList", mmList);
             int num = mList.toArray().length;
-            request.setAttribute("num", num);
+            request.getSession().setAttribute("num", num);
+            request.setAttribute("page",page);
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/movielist.jsp");
             rd.forward(request, response);
         }
         else{
             pList = dao.findperson_by_personname(request.getParameter("search"));
-            request.setAttribute("pList", pList);
+            request.getSession().setAttribute("personList",pList);
+            ArrayList<person> ppList = new ArrayList<>();
+            for(int i=0;i<5;i++){
+                if(i<pList.toArray().length)
+                    ppList.add(pList.get(i));
+            }
+            request.setAttribute("pList", ppList);
             int num = pList.toArray().length;
-            request.setAttribute("num", num);
+            request.getSession().setAttribute("num", num);
+            request.setAttribute("page",page);
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/personlist.jsp");
             rd.forward(request, response);
         }

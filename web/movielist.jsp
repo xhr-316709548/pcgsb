@@ -256,7 +256,7 @@
         <div class="row ipad-width2">
             <div class="col-md-8 col-sm-12 col-xs-12">
                 <div class="topbar-filter">
-                    <p>Found <span>${requestScope.num} movies</span> in total</p>
+                    <p>Found <span>${sessionScope.num} movies</span> in total</p>
                     <label>Sort by:</label>
                     <select>
                         <option value="popularity">Popularity Descending</option>
@@ -288,10 +288,28 @@
                         <option value="saab">10 Movies</option>
                     </select>
                     <div class="pagination2">
-                        <span>Page 1 of 2:</span>
-                        <a class="active" href="#">1</a>
-                        <a href="#">2</a>
-                        <a href="#"><i class="ion-arrow-right-b"></i></a>
+                        <c:set var="page" value="${requestScope.page}" scope="request"/>
+                        <c:set var="num" value="${sessionScope.num}" scope="session"/>
+                        <c:if test="${page==1&&num<=5}">
+                            <span>Page:</span>
+                            <a class="active" href="#">${page}</a>
+                        </c:if>
+                        <c:if test="${page==1&&num>5}">
+                        <span>Page:</span>
+                        <a class="active" href="#">${page}</a>
+                        <a href="PageServlet?page=${page+1}&&pmop=movie">${page+1}</a>
+                        </c:if>
+                        <c:if test="${page!=1&&num>page*5}">
+                            <span>Page:</span>
+                            <a href="PageServlet?page=${page-1}&&pmop=movie">${page-1}</a>
+                            <a class="active" href="#">${page}</a>
+                            <a href="PageServlet?page=${page+1}&&pmop=movie">${page+1}</a>
+                        </c:if>
+                        <c:if test="${page!=1&&num<=page*5}">
+                            <span>Page:</span>
+                            <a href="PageServlet?page=${page-1}&&pmop=movie">${page-1}</a>
+                            <a class="active" href="#">${page}</a>
+                        </c:if>
                     </div>
                 </div>
             </div>

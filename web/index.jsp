@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <!--[if IE 7]>
 <html class="ie ie7 no-js" lang="en-US">
@@ -84,36 +85,41 @@
 <div class="login-wrapper"  id="signup-content">
     <div class="login-content">
         <a href="#" class="close">x</a>
+<c:if test="${sessionScope.uName!=null}">
+        <h3>Welcome,${sessionScope.uName}!</h3>
+</c:if>
+<c:if test="${sessionScope.uName==null}">
         <h3>sign up</h3>
         <form method="post" action="signupServlet">
-            <div class="row">
-                <label for="username-2">
-                    Username:
-                    <input type="text" name="username" id="username-2" placeholder="请使用字母和数字且开头为字母并大于三位" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{3,20}$" required="required" />
-                </label>
-            </div>
-            <div class="row">
-                <label for="email-2">
-                    your email:
-                    <input type="text" name="email" id="email-2" placeholder="请输入正确的邮箱格式" pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$" required="required" />
-                </label>
-            </div>
-            <div class="row">
-                <label for="password-2">
-                    Password:
-                    <input type="password" name="password" id="password-2" placeholder="密码需要大于8位且包括大小写字母与数字" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
-                </label>
-            </div>
-            <div class="row">
-                <label for="repassword-2">
-                    re-type Password:
-                    <input type="password" name="repassword" id="repassword-2" placeholder="请重复你输入的密码" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
-                </label>
-            </div>
-            <div class="row">
-                <button type="submit">sign up</button>
-            </div>
-        </form>
+                <div class="row">
+                    <label for="username-2">
+                        Username:
+                        <input type="text" name="username" id="username-2" placeholder="请使用字母和数字且开头为字母并大于三位" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{3,20}$" required="required" />
+                    </label>
+                </div>
+                <div class="row">
+                    <label for="email-2">
+                        your email:
+                        <input type="text" name="email" id="email-2" placeholder="请输入正确的邮箱格式" pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$" required="required" />
+                    </label>
+                </div>
+                <div class="row">
+                    <label for="password-2">
+                        Password:
+                        <input type="password" name="password" id="password-2" placeholder="密码需要大于8位且包括大小写字母与数字" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
+                    </label>
+                </div>
+                <div class="row">
+                    <label for="repassword-2">
+                        re-type Password:
+                        <input type="password" name="repassword" id="repassword-2" placeholder="请重复你输入的密码" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
+                    </label>
+                </div>
+                <div class="row">
+                    <button type="submit">sign up</button>
+                </div>
+            </form>
+</c:if>
     </div>
 </div>
 <!--end of signup form popup-->
@@ -213,7 +219,12 @@
                     </li>
                     <li><a href="#">Help</a></li>
                     <li class="loginLink"><a href="#">LOG In</a></li>
-                    <li class="btn signupLink"><a href="#">sign up</a></li>
+                    <c:if test="${sessionScope.uName!=null}">
+                        <li class="btn signupLink"><a href="#">${sessionScope.uName}</a></li>
+                    </c:if>
+                    <c:if test="${sessionScope.uName==null}">
+                        <li class="btn signupLink"><a href="#">sign up</a></li>
+                    </c:if>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
