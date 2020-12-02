@@ -314,6 +314,7 @@ public class UserDao extends BaseDao {
         }
         return Person_sum_list;
     }
+
     public ArrayList<Movie_sum> search_movie(ArrayList<String> person_name) {
         String sql = "select * from person,relationships where person.name=? and person.id=relationships.person_id";
         ArrayList<Movie_sum> Movie_sum_list = new ArrayList<>();
@@ -348,5 +349,64 @@ public class UserDao extends BaseDao {
             }
         }
         return Movie_sum_list;
+    }
+
+    public ArrayList<like> findLikesByUser(String userName){
+        String sql="select * from ratInfo where user_count=(select user_count from userName where user_name=?)";
+        ArrayList<like> likelist = new ArrayList<>();
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, userName);
+            try (ResultSet rst = pstmt.executeQuery()) {
+                while (rst.next()) {
+                    like l=new like();
+                    l.setUser_name(rst.getInt("user_count"));
+                    l.setMovie_id(rst.getInt("movie_count"));
+                    l.setRate(rst.getInt("rate"));
+                    likelist.add(l);
+                }
+            }
+        } catch (SQLException se) {
+            System.out.println(se);
+            return null;
+        }
+        return likelist;
+    }
+
+    public ArrayList<like> findAlllike(){
+        String sql="select * from ratInfo  order by movie_count";
+        ArrayList<like> likelist = new ArrayList<>();
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            try (ResultSet rst = pstmt.executeQuery()) {
+                while (rst.next()) {
+                    like l=new like();
+                    l.setUser_name(rst.getInt("user_count"));
+                    l.setMovie_id(rst.getInt("movie_count"));
+                    l.setRate(rst.getInt("rate"));
+                    likelist.add(l);
+                }
+            }
+        } catch (SQLException se) {
+            System.out.println(se);
+        }
+        return likelist;
+    }
+
+    public String findUsernameByCount(int count){
+        String sql="select user_name from userName where user_count=?";
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, count);
+            try (ResultSet rst = pstmt.executeQuery()) {
+                if (rst.next()) {
+                    return rst.getString("user_name");
+                }
+            }
+        } catch (SQLException se) {
+            System.out.println(se);
+            return null;
+        }
+        return null;
     }
 }
