@@ -82,6 +82,12 @@ public class showPerson extends HttpServlet {
                  //这是顺序
             }
         });
+        ArrayList<person> spList = new ArrayList<>();
+        for(int i=0;i<10;i++)
+        {
+            spList.add(dao.findperson_by_personid(Integer.toString(person_sums.get(i).getPerson_id())));
+            request.setAttribute("spList", spList);
+        }
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/personsingle.jsp");
         rd.forward(request, response);
     }

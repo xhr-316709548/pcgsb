@@ -85,9 +85,11 @@ public class showMovie extends HttpServlet {
             }
         });
 //        System.out.println(Movie_sums.size());
+        ArrayList<movie> smList = new ArrayList<>();
         for(int i=0;i<10;i++)
         {
-            System.out.println(Movie_sums.get(i).getMovie_id());
+            smList.add(dao.findmovie_by_movieid(Integer.toString(Movie_sums.get(i).getMovie_id())));
+            request.setAttribute("smList", smList);
         }
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/moviesingle.jsp");
         rd.forward(request, response);
