@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 @WebServlet(urlPatterns = "/showPerson")
 public class showPerson extends HttpServlet {
@@ -60,12 +62,26 @@ public class showPerson extends HttpServlet {
             }
             if (flag == 1) pointlist.add(pt);
         }
+        mList = dao.findmovie_by_personid(personid);
+        ArrayList<String> movies=new ArrayList<>();
+        for(int i=0;i<mList.size();i++)
+        {
+            movies.add(mList.get(i).getName());
+        }
         JSONArray pointresult=JSONArray.fromObject(pointlist);
         request.setAttribute("linklist",linkresult.toString());
         request.setAttribute("pointlist",pointresult.toString());
-        mList = dao.findmovie_by_personid(personid);
         request.setAttribute("mList", mList);
         request.setAttribute("person", p);
+        ArrayList<Person_sum> person_sums=dao.search_person(movies);
+        person_sums.sort(new Comparator<Person_sum>(){
+            @Override
+            public int compare(Person_sum p1 , Person_sum p2 ) {
+                //这里是根据ID来排序，所以它为空的要剔除掉
+                return (p2.getSum()-p1.getSum());
+                 //这是顺序
+            }
+        });
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/personsingle.jsp");
         rd.forward(request, response);
     }

@@ -1,9 +1,6 @@
 package com.Servlet;
 
-import com.Bean.link;
-import com.Bean.movie;
-import com.Bean.person;
-import com.Bean.point;
+import com.Bean.*;
 import com.dao.UserDao;
 import net.sf.json.JSONArray;
 
@@ -15,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
+
 
 @WebServlet(urlPatterns = "/showMovie")
 public class showMovie extends HttpServlet {
@@ -28,7 +27,7 @@ public class showMovie extends HttpServlet {
         UserDao dao = new UserDao();
         String movieid = request.getParameter("movieid");
         movie m = dao.findmovie_by_movieid(movieid);
-        ArrayList<person> dirList,autList,actList;
+        ArrayList<person> dirList,autList,actList,plist;
         ArrayList<link> linklist;
         ArrayList<point> pointlist=new ArrayList<>();
         linklist = dao.search_movie_link(movieid);
@@ -62,6 +61,12 @@ public class showMovie extends HttpServlet {
             }
             if (flag == 1) pointlist.add(p);
         }
+        plist = dao.findperson_by_movieid(movieid);
+        ArrayList<String> persons=new ArrayList<>();
+        for(int i=0;i<plist.size();i++)
+        {
+            persons.add(plist.get(i).getName());
+        }
         JSONArray pointresult=JSONArray.fromObject(pointlist);
         dirList = dao.findperson_by_movieid_role(movieid,"director");
         autList = dao.findperson_by_movieid_role(movieid,"author");
@@ -72,6 +77,18 @@ public class showMovie extends HttpServlet {
         request.setAttribute("linklist",linkresult.toString());
         request.setAttribute("pointlist",pointresult.toString());
         request.setAttribute("movie", m);
+        ArrayList<Movie_sum> Movie_sums=dao.search_movie(persons);
+        Movie_sums.sort(new Comparator<Movie_sum>() {
+            @Override
+            public int compare(Movie_sum o1, Movie_sum o2) {
+                return o2.getSum()-o1.getSum();
+            }
+        });
+//        System.out.println(Movie_sums.size());
+        for(int i=0;i<10;i++)
+        {
+            System.out.println(Movie_sums.get(i).getMovie_id());
+        }
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/moviesingle.jsp");
         rd.forward(request, response);
     }
