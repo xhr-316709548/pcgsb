@@ -86,7 +86,7 @@ public class showMovie extends HttpServlet {
         });
 //        System.out.println(Movie_sums.size());
         ArrayList<movie> smList = new ArrayList<>();
-        for(int i=0;i<10;i++)
+        for(int i=1;i<11;i++)
         {
             smList.add(dao.findmovie_by_movieid(Integer.toString(Movie_sums.get(i).getMovie_id())));
             request.setAttribute("smList", smList);

@@ -1,5 +1,6 @@
 package com.Servlet;
 
+import com.Bean.movie;
 import com.dao.UserDao;
 import com.Bean.like;
 
@@ -59,6 +60,15 @@ public class recommendServlet extends HttpServlet {
             }
         }
         recommendlist[lnum-1]=0;
+        max=0;
+        for(int i=0;i<3327;i++)
+        {
+            if(recommendlist[i]>max){
+                max=recommendlist[i];
+                lnum=i+1;
+            }
+        }
+        recommendlist[lnum-1]=0;
         a[0]=lnum;
         max=0;
         for(int i=0;i<3327;i++)
@@ -96,6 +106,20 @@ public class recommendServlet extends HttpServlet {
         recommendUser.add(userdao.findUsernameByCount(a[2]));
         recommendUser.add(userdao.findUsernameByCount(a[3]));
         request.setAttribute("recommendUser",recommendUser);
+        ArrayList<Integer> rmList = userdao.findMovieByUserName(userName);
+        ArrayList<movie> recommendMovie = new ArrayList<>();
+        if(rmList.toArray().length>=5){
+            for(int i=0;i<5;i++)
+                recommendMovie.add(userdao.findRecommendMovieByMovieid(rmList.get(i)));
+        }
+        else{
+            recommendMovie.add(userdao.findmovie_by_movieid("1291543"));
+            recommendMovie.add(userdao.findmovie_by_movieid("1291544"));
+            recommendMovie.add(userdao.findmovie_by_movieid("1291545"));
+            recommendMovie.add(userdao.findmovie_by_movieid("1291546"));
+            recommendMovie.add(userdao.findmovie_by_movieid("1291548"));
+        }
+        request.setAttribute("recommendMovie",recommendMovie);
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
         rd.forward(request, response);
     }

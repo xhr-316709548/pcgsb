@@ -83,7 +83,7 @@ public class showPerson extends HttpServlet {
             }
         });
         ArrayList<person> spList = new ArrayList<>();
-        for(int i=0;i<10;i++)
+        for(int i=1;i<11;i++)
         {
             spList.add(dao.findperson_by_personid(Integer.toString(person_sums.get(i).getPerson_id())));
             request.setAttribute("spList", spList);

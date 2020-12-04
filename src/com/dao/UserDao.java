@@ -409,4 +409,46 @@ public class UserDao extends BaseDao {
         }
         return null;
     }
+
+    public ArrayList<Integer> findMovieByUserName(String name){
+        String sql = "select * from userRate where user_name = ? order by rate desc";
+        ArrayList<Integer> mIdlist = new ArrayList<>();
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, name);
+            try (ResultSet rst = pstmt.executeQuery()) {
+                while (rst.next()) {
+                    mIdlist.add(rst.getInt("movie_id"));
+                }
+            }
+        } catch (SQLException se) {
+            return null;
+        }
+        return mIdlist;
+    }
+
+    public movie findRecommendMovieByMovieid(int id){
+        String sql = "select * from movies where id =(select movie_id from movID where movie_count =" +
+                "(select recommendcount from recommend_movie where moviecount =(select movie_count from movID where movie_id=?)))";
+        movie m = new movie();
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            try (ResultSet rst = pstmt.executeQuery()) {
+                if (rst.next()) {
+                    m.setId(rst.getInt("id"));
+                    m.setName(rst.getString("name"));
+                    m.setCountry(rst.getString("country"));
+                    m.setGenre(rst.getString("genre"));
+                    m.setImg(rst.getString("img"));
+                    m.setSummary(rst.getString("summary"));
+                    m.setYear(rst.getString("year"));
+                    m.setRate(rst.getString("rating"));
+                }
+            }
+        } catch (SQLException se) {
+            return null;
+        }
+        return m;
+    }
 }
