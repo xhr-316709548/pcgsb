@@ -42,77 +42,100 @@
 <div class="login-wrapper" id="login-content">
     <div class="login-content">
         <a href="#" class="close">x</a>
-        <h3>Login</h3>
-        <form method="post" action="loginServlet">
-            <div class="row">
-                <label for="username">
-                    Username:
-                    <input type="text" name="username" id="username" placeholder="Type username" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{3,20}$" required="required" />
-                </label>
-            </div>
-
-            <div class="row">
-                <label for="password">
-                    Password:
-                    <input type="password" name="password" id="password" placeholder="Type pawword" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
-                </label>
-            </div>
-            <div class="row">
-                <div class="remember">
-                    <div>
-                        <input type="checkbox" name="remember" value="Remember me"><span>Remember me</span>
+        <c:if test="${sessionScope.uName!=null}">
+            <h3>是否确认登出？</h3>
+            <form method="post" action="logoutServlet">
+                <div class="row">
+                    <button type="submit">确认</button>
+                </div>
+            </form>
+        </c:if>
+        <c:if test="${sessionScope.uName==null}">
+            <h3>登录</h3>
+            <form method="post" action="loginServlet">
+                <div class="row">
+                    <label for="username">
+                        用户名:
+                        <input type="text" name="username" id="username" placeholder="Type username"
+                               pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{3,20}$" required="required"/>
+                    </label>
+                </div>
+                <div class="row">
+                    <label for="password">
+                        密码:
+                        <input type="password" name="password" id="password" placeholder="Type pawword"
+                               pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+                               required="required"/>
+                    </label>
+                </div>
+                <div class="row">
+                    <div class="remember">
+                        <div>
+                            <input type="checkbox" name="remember" value="Remember me"><span>Remember me</span>
+                        </div>
+                        <a href="#">忘记密码 ?</a>
                     </div>
-                    <a href="#">Forget password ?</a>
+                </div>
+                <div class="row">
+                    <button type="submit">登录</button>
+                </div>
+            </form>
+            <div class="row">
+                <p>其他登陆方式</p>
+                <div class="social-btn-2">
+                    <a class="fb" href="#"><i class="ion-social-facebook"></i>Facebook</a>
+                    <a class="tw" href="#"><i class="ion-social-twitter"></i>twitter</a>
                 </div>
             </div>
-            <div class="row">
-                <button type="submit">Login</button>
-            </div>
-        </form>
-        <div class="row">
-            <p>Or via social</p>
-            <div class="social-btn-2">
-                <a class="fb" href="#"><i class="ion-social-facebook"></i>Facebook</a>
-                <a class="tw" href="#"><i class="ion-social-twitter"></i>twitter</a>
-            </div>
-        </div>
+        </c:if>
     </div>
 </div>
 <!--end of login form popup-->
 <!--signup form popup-->
-<div class="login-wrapper"  id="signup-content">
+<div class="login-wrapper" id="signup-content">
     <div class="login-content">
         <a href="#" class="close">x</a>
-        <h3>sign up</h3>
-        <form method="post" action="signupServlet">
-            <div class="row">
-                <label for="username-2">
-                    Username:
-                    <input type="text" name="username" id="username-2" placeholder="请使用字母和数字且开头为字母并大于三位" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{3,20}$" required="required" />
-                </label>
-            </div>
-            <div class="row">
-                <label for="email-2">
-                    your email:
-                    <input type="text" name="email" id="email-2" placeholder="请输入正确的邮箱格式" pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$" required="required" />
-                </label>
-            </div>
-            <div class="row">
-                <label for="password-2">
-                    Password:
-                    <input type="password" name="password" id="password-2" placeholder="密码需要大于8位且包括大小写字母与数字" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
-                </label>
-            </div>
-            <div class="row">
-                <label for="repassword-2">
-                    re-type Password:
-                    <input type="password" name="repassword" id="repassword-2" placeholder="请重复你输入的密码" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
-                </label>
-            </div>
-            <div class="row">
-                <button type="submit">sign up</button>
-            </div>
-        </form>
+        <c:if test="${sessionScope.uName!=null}">
+            <h3>欢迎,${sessionScope.uName}!</h3>
+        </c:if>
+        <c:if test="${sessionScope.uName==null}">
+            <h3>注册</h3>
+            <form method="post" action="signupServlet">
+                <div class="row">
+                    <label for="username-2">
+                        用户名:
+                        <input type="text" name="username" id="username-2" placeholder="请使用字母和数字且开头为字母并大于三位"
+                               pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{3,20}$" required="required"/>
+                    </label>
+                </div>
+                <div class="row">
+                    <label for="email-2">
+                        邮箱:
+                        <input type="text" name="email" id="email-2" placeholder="请输入正确的邮箱格式"
+                               pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$" required="required"/>
+                    </label>
+                </div>
+                <div class="row">
+                    <label for="password-2">
+                        密码:
+                        <input type="password" name="password" id="password-2" placeholder="密码需要大于8位且包括大小写字母与数字"
+                               pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+                               required="required"/>
+                    </label>
+                </div>
+                <div class="row">
+                    <label for="repassword-2">
+                        重复密码:
+                        <input type="password" name="repassword" id="repassword-2" placeholder="请重复你输入的密码"
+                               pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+                               required="required"/>
+                    </label>
+                </div>
+                <div class="row">
+                    <button type="submit">注册</button>
+                </div>
+            </form>
+        </c:if>
     </div>
 </div>
 <!--end of signup form popup-->
@@ -131,7 +154,7 @@
                         <span></span>
                     </div>
                 </div>
-                <a href="index.html"><img class="logo" src="images/logo1.png" alt="" width="119" height="58"></a>
+                <a href="index.jsp"><img class="logo" src="images/logo1.png" alt="" width="119" height="58"></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
@@ -140,79 +163,36 @@
                         <a href="#page-top"></a>
                     </li>
                     <li class="dropdown first">
-                        <a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown">
-                            Home <i class="fa fa-angle-down" aria-hidden="true"></i>
+                        <a class="btn btn-default dropdown-toggle lv1"  href="index.jsp">
+                            主页
                         </a>
-                        <ul class="dropdown-menu level1">
-                            <li><a href="index.html">Home 01</a></li>
-                            <li><a href="homev2.html">Home 02</a></li>
-                            <li><a href="homev3.html">Home 03</a></li>
-                        </ul>
+                    </li>
+                    <li class="dropdown first">
+                        <a class="btn btn-default dropdown-toggle lv1" data-hover="dropdown" href="bloglist.jsp">
+                            新闻
+                        </a>
                     </li>
                     <li class="dropdown first">
                         <a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-                            movies<i class="fa fa-angle-down" aria-hidden="true"></i>
+                            我的信息 <i class="fa fa-angle-down" aria-hidden="true"></i>
                         </a>
                         <ul class="dropdown-menu level1">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" >Movie grid<i class="ion-ios-arrow-forward"></i></a>
-                                <ul class="dropdown-menu level2">
-                                    <li><a href="moviegrid.html">Movie grid</a></li>
-                                    <li><a href="moviegridfw.html">movie grid full width</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="movielist.html">Movie list</a></li>
-                            <li><a href="moviesingle.html">Movie single</a></li>
-                            <li class="it-last"><a href="seriessingle.html">Series single</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown first">
-                        <a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-                            celebrities <i class="fa fa-angle-down" aria-hidden="true"></i>
-                        </a>
-                        <ul class="dropdown-menu level1">
-                            <li><a href="celebritygrid01.html">celebrity grid 01</a></li>
-                            <li><a href="celebritygrid02.html">celebrity grid 02 </a></li>
-                            <li><a href="celebritylist.html">celebrity list</a></li>
-                            <li class="it-last"><a href="celebritysingle.html">celebrity single</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown first">
-                        <a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-                            news <i class="fa fa-angle-down" aria-hidden="true"></i>
-                        </a>
-                        <ul class="dropdown-menu level1">
-                            <li><a href="bloglist.html">blog List</a></li>
-                            <li><a href="bloggrid.html">blog Grid</a></li>
-                            <li class="it-last"><a href="blogdetail.html">blog Detail</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown first">
-                        <a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-                            community <i class="fa fa-angle-down" aria-hidden="true"></i>
-                        </a>
-                        <ul class="dropdown-menu level1">
-                            <li><a href="userfavoritegrid.html">user favorite grid</a></li>
-                            <li><a href="userfavoritelist.html">user favorite list</a></li>
-                            <li><a href="userprofile.html">user profile</a></li>
-                            <li class="it-last"><a href="userrate.html">user rate</a></li>
+                            <li><a href="userfavoritegrid.jsp">我的最爱</a></li>
+                            <li><a href="userprofile.jsp">修改信息</a></li>
+                            <li class="it-last"><a href="userrate.jsp">我的评分</a></li>
                         </ul>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav flex-child-menu menu-right">
-                    <li class="dropdown first">
-                        <a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-                            pages <i class="fa fa-angle-down" aria-hidden="true"></i>
-                        </a>
-                        <ul class="dropdown-menu level1">
-                            <li><a href="landing.html">Landing</a></li>
-                            <li><a href="404.html">404 Page</a></li>
-                            <li class="it-last"><a href="comingsoon.html">Coming soon</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">Help</a></li>
-                    <li class="loginLink"><a href="#">LOG In</a></li>
-                    <li class="btn signupLink"><a href="#">sign up</a></li>
+                    <li><a href="#">帮助</a></li>
+                    <c:if test="${sessionScope.uName!=null}">
+                        <li class="loginLink"><a href="#">登出</a></li>
+                        <li class="btn signupLink"><a href="#">${sessionScope.uName}</a></li>
+                    </c:if>
+                    <c:if test="${sessionScope.uName==null}">
+                        <li class="loginLink"><a href="#">登陆</a></li>
+                        <li class="btn signupLink"><a href="#">注册</a></li>
+                    </c:if>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -224,8 +204,6 @@
                 <select name="fchoose">
                     <option value="mName">影名</option>
                     <option value="actor">明星</option>
-                    <option value="director">导演</option>
-                    <option value="genre">标签</option>
                 </select>
                 <input type="text" name="search" placeholder="请选择左侧搜索方式再进行搜索。">
             </div>
@@ -239,10 +217,10 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="hero-ct">
-                    <h1> person listing - list</h1>
+                    <h1> 影人搜索 - 列表</h1>
                     <ul class="breadcumb">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li> <span class="ion-ios-arrow-right"></span> person listing</li>
+                        <li class="active"><a href="index.jsp">主页</a></li>
+                        <li> <span class="ion-ios-arrow-right"></span> 影人搜索</li>
                     </ul>
                 </div>
             </div>
@@ -254,18 +232,7 @@
         <div class="row ipad-width2">
             <div class="col-md-8 col-sm-12 col-xs-12">
                 <div class="topbar-filter">
-                    <p>Found <span>${sessionScope.num} persons</span> in total</p>
-                    <label>Sort by:</label>
-                    <select>
-                        <option value="popularity">Popularity Descending</option>
-                        <option value="popularity">Popularity Ascending</option>
-                        <option value="rating">Rating Descending</option>
-                        <option value="rating">Rating Ascending</option>
-                        <option value="date">Release date Descending</option>
-                        <option value="date">Release date Ascending</option>
-                    </select>
-                    <a href="#" class="list"><i class="ion-ios-list-outline active"></i></a>
-                    <a  href="#" class="grid"><i class="ion-grid"></i></a>
+                    <p>一共发现 <span>${sessionScope.num} </span> 个影人</p>
                 </div>
                 <c:forEach var="pList" items="${requestScope.pList}">
                     <div class="movie-item-style-2">
@@ -273,15 +240,14 @@
                         <div class="mv-item-infor">
                             <h6><a href="showPerson?personid=${pList.id}">${pList.name} <span>(${pList.birthday})</span></a></h6>
                             <p style="display: -webkit-box;-webkit-line-clamp:3;-webkit-box-orient: vertical;overflow: hidden;border-bottom: 1px solid #405266;margin-bottom: 25px;">${pList.summary}</p>
-                            <p>Country: ${pList.birthplace}</p>
+                            <p>地区: ${pList.birthplace}</p>
                         </div>
                     </div>
                 </c:forEach>
                 <div class="topbar-filter">
-                    <label>Persons per page:</label>
+                    <label>每页有影人:</label>
                     <select>
-                        <option value="range">5 Persons</option>
-                        <option value="saab">10 Persons</option>
+                        <option value="range">5 位</option>
                     </select>
                     <div class="pagination2">
                         <c:set var="page" value="${requestScope.page}" scope="request"/>
@@ -334,7 +300,7 @@
     <div class="container">
         <div class="flex-parent-ft">
             <div class="flex-child-ft item1">
-                <a href="index.html"><img class="logo" src="images/logo1.png" alt=""></a>
+                <a href="index.jsp"><img class="logo" src="images/logo1.png" alt=""></a>
                 <p>5th Avenue st, manhattan<br>
                     New York, NY 10001</p>
                 <p>Call us: <a href="#">(+01) 202 342 6789</a></p>

@@ -15,10 +15,11 @@ import java.util.ArrayList;
 
 @WebServlet(urlPatterns = "/recommendServlet")
 public class recommendServlet extends HttpServlet {
+    public static UserDao userdao = new UserDao();
+    public static ArrayList<like> likeLists = userdao.findAlllike();
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userName=request.getSession().getAttribute("uName").toString();
-        UserDao userdao = new UserDao();
-        ArrayList<like> likeLists = userdao.findAlllike();                                       //其他用户喜欢的论文列表
         int[][] curMatrix = new int[3327][28603];//当前矩阵
         for(int i=0;i<likeLists.size();i++)
         {
@@ -50,7 +51,7 @@ public class recommendServlet extends HttpServlet {
             recommendlist[j]=num/den;
         }
         int[] a = new int[4];
-        int lnum=0;
+        int lnum=1;
         double max=0;
         for(int i=0;i<3327;i++)
         {
@@ -116,8 +117,8 @@ public class recommendServlet extends HttpServlet {
             recommendMovie.add(userdao.findmovie_by_movieid("1291543"));
             recommendMovie.add(userdao.findmovie_by_movieid("1291544"));
             recommendMovie.add(userdao.findmovie_by_movieid("1291545"));
-            recommendMovie.add(userdao.findmovie_by_movieid("1291546"));
-            recommendMovie.add(userdao.findmovie_by_movieid("1291548"));
+            recommendMovie.add(userdao.findmovie_by_movieid("1295644"));
+            recommendMovie.add(userdao.findmovie_by_movieid("1292720"));
         }
         request.setAttribute("recommendMovie",recommendMovie);
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");

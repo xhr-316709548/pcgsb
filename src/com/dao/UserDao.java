@@ -428,7 +428,7 @@ public class UserDao extends BaseDao {
     }
 
     public movie findRecommendMovieByMovieid(int id){
-        String sql = "select * from movies where id =(select movie_id from movID where movie_count =" +
+        String sql = "select * from aMovies where id =(select movie_id from movID where movie_count =" +
                 "(select recommendcount from recommend_movie where moviecount =(select movie_count from movID where movie_id=?)))";
         movie m = new movie();
         try (Connection conn = dataSource.getConnection();
@@ -450,5 +450,38 @@ public class UserDao extends BaseDao {
             return null;
         }
         return m;
+    }
+
+    public Boolean insertmovieid_by_movieid(int j,ArrayList<Movie_sum> Movie_sums) {
+        String sql = "insert into doubleDeckMovies values (?,?,?,?,?,?,?,?,?,?,?)";
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, j);
+            for(int i=0;i<10;i++)
+                pstmt.setInt(i+2, Movie_sums.get(i).getMovie_id());
+            pstmt.executeUpdate();
+            }
+        catch (SQLException se) {
+            se.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public int findid(int count){
+        String sql = "select id from bMovies where count=?";
+        int c = 0;
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, count);
+            try (ResultSet rst = pstmt.executeQuery()) {
+                if (rst.next()) {
+                    c=rst.getInt("id");
+                }
+            }
+        } catch (SQLException se) {
+            return 0;
+        }
+        return c;
     }
 }
