@@ -176,16 +176,6 @@
                             新闻
                         </a>
                     </li>
-                    <li class="dropdown first">
-                        <a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-                            我的信息 <i class="fa fa-angle-down" aria-hidden="true"></i>
-                        </a>
-                        <ul class="dropdown-menu level1">
-                            <li><a href="userfavoritegrid.jsp">我的最爱</a></li>
-                            <li><a href="userprofile.jsp">修改信息</a></li>
-                            <li class="it-last"><a href="userrate.jsp">我的评分</a></li>
-                        </ul>
-                    </li>
                 </ul>
                 <ul class="nav navbar-nav flex-child-menu menu-right">
                     <li><a href="#">帮助</a></li>

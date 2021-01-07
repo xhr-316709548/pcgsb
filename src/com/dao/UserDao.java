@@ -484,4 +484,37 @@ public class UserDao extends BaseDao {
         }
         return c;
     }
+
+    public Boolean insertpersonid_by_personid(int j,ArrayList<Person_sum> Person_sums) {
+        String sql = "insert into doubleDeckPersons values (?,?,?,?,?,?,?,?,?,?,?)";
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, j);
+            for(int i=1;i<11;i++)
+                pstmt.setInt(i+1, Person_sums.get(i).getPerson_id());
+            pstmt.executeUpdate();
+        }
+        catch (SQLException se) {
+            se.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public int findpid(int count){
+        String sql = "select id from bperson where count=?";
+        int c = 0;
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, count);
+            try (ResultSet rst = pstmt.executeQuery()) {
+                if (rst.next()) {
+                    c=rst.getInt("id");
+                }
+            }
+        } catch (SQLException se) {
+            return 0;
+        }
+        return c;
+    }
 }
